@@ -1,11 +1,12 @@
 version: "3.8"
 services:
   flask-app:
-    container_name: flask-app 
+    container_name: flask-app
+    environment:
+      YOUR_NAME: 'Bill'
     build: .
     ports:
     - target: 5500
-      published: 5500
       protocol: tcp
   nginx:
     image: nginx:latest
@@ -17,3 +18,5 @@ services:
     - type: bind
       source: ./nginx.conf
       target: /etc/nginx/nginx.conf
+    depends_on:
+      - "flask-app"
